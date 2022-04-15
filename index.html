@@ -20,31 +20,40 @@
     <main class="main-content">
         <section class="search-select">
             <div aria-label="barre de recherche" class="search-bar">
-                <form action="" class="search-form">
-                    <label for="main search" class="visually-hidden"></label>
-                    <input class="searchbar-input" type="search" placeholder="Ingrédients, Appareils, Ustensils" minlength="3">
-                    <div class="icon"><i class="fas fa-search"></i></div>
-                </form>
+                <label for="main search" class="visually-hidden"></label>
+                <input class="input searchbar-input" data-attribute="searchbar-input" type="search" placeholder="Ingrédients, Appareils, Ustensils" minlength="3">
+                <div class="icon"><i class="fas fa-search"></i></div>
             </div>
             <div class="tag-container"></div>
-            <div class="ingredients-select">
-                <label for="indredients"></label>
-                <input type="text" placeholder="Ingrédients">
-                <i class="fas fa-angle-up"></i>
-                <i class="fas fa-angle-down"></i>
-            </div>
-            <div class="appliance-select">
-                <label for="appliance"></label>
-                <input type="text" placeholder="Appareils">
-                <i class="fas fa-angle-up"></i>
-                <i class="fas fa-angle-down"></i>
-            </div>
-            <div class="ustensils-select">
-                <label for="ustensils"></label>
-                <input type="text" placeholder="Ustensils">
-                <i class="fas fa-angle-up"></i>
-                <i class="fas fa-angle-down"></i>
-            </div>
+            <div class="select-container">
+                <div class=" select ingredients-select">
+                    <label for="indredients"></label>
+                    <input class="input ingredients" data-attribute="ingredients-input" type="text" placeholder="Ingrédients">
+                    <div class="icon-container">
+                        <i class="fas fa-chevron-down"></i>
+                        <i class="fas fa-chevron-up"></i>
+                    </div>
+                    <div class="elements ingredientElts" data-name="ingredients"></div>
+                </div>
+                <div class="select appliance-select">
+                    <label for="appliances"></label>
+                    <input class="input appliances" data-attribute="appliances-input" type="text" placeholder="Appareils">
+                    <div class="icon-container">
+                        <i class="fas fa-chevron-down"></i>
+                        <i class="fas fa-chevron-up"></i>
+                    </div>
+                    <div class="elements applianceElts" data-name="appliances"></div>
+                </div>
+                <div class="select ustensils-select">
+                    <label for="ustensils"></label>
+                    <input class="input ustensils" data-attribute="ustensils-input" type="text" placeholder="Ustensils">
+                    <div class="icon-container">
+                        <i class="fas fa-chevron-down"></i>
+                        <i class="fas fa-chevron-up"></i>
+                    </div>
+                    <div class="elements ustensilsElts" data-name="ustensils"></div>
+                </div>
+        </div>
         </section>
         
 
