@@ -6,8 +6,10 @@ import recipes from "./recipes.js";
 let ingredients = [];
 let appliances = [];
 let ustensils = [];
+// notre liste de tags générale
+let tags = [];
 let inputs = document.querySelectorAll(".input");
-let elements = document.querySelectorAll(".elements");
+const tagContainer =document.querySelector(".tag-container");
 const ingredientsSelect = document.querySelector(".ingredientElts");
 const applianceSelect = document.querySelector(".applianceElts");
 const ustensilsSelect = document.querySelector(".ustensilsElts");
@@ -31,8 +33,6 @@ const ingredientList = [...uniqueSet];
 const applianceList = [...applianceSet];
 const ustensilsList = [...ustensilsSet];
 
-console.log(elements[1].getAttribute("appliances"));
-
 //Functions to add html nodes
 
 //turn 3 functions below to a single function using html data-attribute
@@ -40,18 +40,64 @@ console.log(elements[1].getAttribute("appliances"));
 const displayIngredients = (ingredientList, node) => {
   node.innerHTML = "";
   ingredientList.forEach((element) => {
-    node.innerHTML += `<span class="ingredient-tag" data-name="ingredients">${element}</span>&nbsp;`;
+    node.innerHTML += `<span class="ingredient-tag tag" data-name="ingredients">${element}</span>&nbsp;`;
   });
+  handleAddTag(".ingredient-tag");
 };
 const displayAppliance = (applianceList, node) => {
+  node.innerHTML = "";
   applianceList.forEach((element) => {
-    node.innerHTML += `<span class="appliance-tag" data-name="appliance">${element}</span>&nbsp;`;
+    node.innerHTML += `<span class="appliance-tag tag" data-name="appliance">${element}</span>&nbsp;`;
   });
+  handleAddTag(".appliance-tag");
 };
 const displayUstensils = (ustensilsList, node) => {
+  node.innerHTML = "";
   ustensilsList.forEach((element) => {
-    node.innerHTML += `<span class="ustensils-tag" data-name="ustensils">${element}</span>&nbsp;`;
+    node.innerHTML += `<span class="ustensils-tag tag" data-name="ustensils">${element}</span>&nbsp;`;
   });
+  handleAddTag(".ustensils-tag");
+};
+//Function to add tags in tag container and suppress tag from select container
+const displayTags = (tags, node) => {
+  // suppress clicked element from it's array
+  //display updated array
+  for(let i = 0; i < tags.length; i++) {
+    if (ingredientList.includes(tags[i].name)){
+      const removeTagIndex = ingredientList.findIndex(tag=> tag === tags[i].name);
+      ingredientList.splice(removeTagIndex, 1);
+      displayIngredients(ingredientList, ingredientsSelect);
+      console.log(ingredientList);
+    } else if (applianceList.includes(tags[i].name)){
+      const removeTagIndex = applianceList.findIndex(tag=> tag === tags[i].name);
+      applianceList.splice(removeTagIndex, 1);
+      displayAppliance(applianceList, applianceSelect);
+      console.log(applianceList);
+    } else if (ustensilsList.includes(tags[i].name)){
+      const removeTagIndex = ustensilsList.findIndex(tag=> tag === tags[i].name);
+      ustensilsList.splice(removeTagIndex, 1);
+      displayUstensils(ustensilsList, ustensilsSelect);
+      console.log(ustensilsList);
+    }
+
+  }
+  // create innerHTML that will be added in tag container through handleAddTag
+  node.innerHTML = "";
+  tags.forEach((tag)=>{
+    node.innerHTML += `<span class="${tag.type}-tag tag" data-name="${tag.type}">${tag.name}</span>&nbsp;`;
+  });
+}
+
+const handleAddTag = (tagSelector) => {
+  const spanTags = document.querySelectorAll(tagSelector);
+  spanTags.forEach(tag => {
+    tag.addEventListener("click", () => {
+      const name = tag.innerHTML;
+      const type = tag.getAttribute("data-name");
+      tags.push({ name, type });
+      displayTags(tags, tagContainer);
+    });
+  })
 };
 
 //display the ingredients in html
@@ -59,35 +105,44 @@ displayIngredients(ingredientList, ingredientsSelect);
 displayAppliance(applianceList, applianceSelect);
 displayUstensils(ustensilsList, ustensilsSelect);
 
-console.log(document.querySelectorAll(".ingredient-tag").forEach((tag)=>{
-    tag.getAttribute("ingredient")
-}));
 
 //Event listener on inputs //
+  //Filter inputs
 inputs.forEach((input) => {
   input.addEventListener("input", (e) => {
-    // console.log(e.target.value);
+    const type = input.getAttribute("data-type");
     let searchInput = e.target.value;
-    const filteredIngredients = ingredientList.filter((ingredient) => {
-      for (let i = 0; i < ingredient.length; i++) {
-        if (ingredient.includes(searchInput)) {
-          console.log("toto");
-          return true;
-        }
-        return false;
-      }
-    });
-    const filteredAppliances = applianceList.filter((appliance) => {
-        for (let i = 0; i < appliance.length; i++) {
-          if (appliance.includes(searchInput)) {
-            console.log("tata");
+    if (type === "ingredients") {
+      const filteredIngredients = ingredientList.filter((ingredient) => {
+        for (let i = 0; i < ingredient.length; i++) {
+          if (ingredient.includes(searchInput)) {
             return true;
           }
           return false;
         }
       });
-    displayIngredients(filteredIngredients, ingredientsSelect);
-    displayIngredients(filteredAppliances, applianceList);
+      displayIngredients(filteredIngredients, ingredientsSelect);
+    } else if (type === "appliances") {
+      const filteredAppliances = applianceList.filter((appliance) => {
+        for (let i = 0; i < appliance.length; i++) {
+          if (appliance.includes(searchInput)) {
+            return true;
+          }
+          return false;
+        }
+      });
+      displayAppliance(filteredAppliances, applianceSelect);
+    } else if (type === "ustensils") {
+      const filteredUstensilss = ustensilsList.filter((ustensils) => {
+        for (let i = 0; i < ustensils.length; i++) {
+          if (ustensils.includes(searchInput)) {
+            return true;
+          }
+          return false;
+        }
+      });
+      displayUstensils(filteredUstensilss, ustensilsSelect);
+    }
   });
 });
 
