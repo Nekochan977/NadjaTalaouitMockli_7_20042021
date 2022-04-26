@@ -1,64 +1,78 @@
 /* Basic styling */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
 }
 body {
-    width: 90%;
-    margin: auto;
-    font-size: 1.5rem;
+  width: 90%;
+  margin: auto;
+  font-size: 1.5rem;
 }
 header {
-    display: flex;
-    justify-content: center;
-    margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
 }
 .main-content {
-    display: flex;
-    align-items: center;   
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*Search bar*/
 
 .search-bar {
-    height: 4rem;
-    margin-bottom: 2rem;
+  height: 4rem;
+  margin-bottom: 2rem;
 }
 .searchbar-input {
-    padding: 1.5rem;
-    width: 100%;
-    height: 4rem;
-    background: #E7E7E7;
-    border-radius: 5px;
-    border: none;
+  padding: 1.5rem;
+  width: 100%;
+  height: 4rem;
+  background: #e7e7e7;
+  border-radius: 5px;
+  border: none;
 }
 .icon {
-    position: absolute;
-    top: 14.5rem;
-    right: 9rem;
-    font-size: 2rem;
+  position: absolute;
+  top: 14.5rem;
+  right: 9rem;
+  font-size: 2rem;
 }
 
 /*Tag section*/
-.tag-container:active {
-    height: 15vh;
-    width: 100%;
-    display: -webkit-flex;
-    display: flex;
-    flex-wrap: wrap;
+.tag-container[active="true"] {
+  height: fit-content;
+  width: 100%;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
 }
-.tag-container .tag {
-    background: blue;
-    color: white;
-    margin: 1rem;
-    padding: 1rem;
-    display: flex;
-    justify-content: center;
-    width: -webkit-fit-content;
-    border-radius: 5px;
+.tagAndBtn, .tag-container .tag {
+  display: flex;
+  align-items: center;
+  color: white;
+  margin: 1rem;
+  padding: 1.5rem 1rem;
+  width: -webkit-fit-content;
+  width: fit-content;
+  height: 2rem;
+  border-radius: 5px;
+}
+.tag-container .ingredients-tag {
+  background-color: #3282f7;
+}
+.tag-container .appliance-tag {
+  background-color: #68d9a4;
+}
+.tag-container .ustensils-tag {
+  background-color: #ed6454;
+}
+.fa-regular {
+  color: #fff;
+  margin-left: 1rem;
 }
