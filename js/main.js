@@ -16,7 +16,7 @@ const applianceSelect = document.querySelector(".applianceElts");
 const ustensilsSelect = document.querySelector(".ustensilsElts");
 const mainSearchInput = document.querySelector('.searchbar-input');
   
-
+////////////////////////////////////////////////////
 
 //------Getting the ingredients------
 recipes.forEach((recipe) => {
@@ -36,6 +36,8 @@ const ustensilsSet = new Set(ustensils);
 const ingredientList = [...ingredientSet];
 const applianceList = [...applianceSet];
 const ustensilsList = [...ustensilsSet];
+
+////////////////////////////////////////////////////
 
 //Functions to add html nodes
 
@@ -62,6 +64,8 @@ const displayUstensils = (ustensilsList, node) => {
   });
   handleAddTag(".ustensils-tag");
 };
+////////////////////////////////////////////////////
+
 //Function to or add tags in tag container and suppress tag from select container, or reverse
 const displayTags = (tags, node) => {
   // suppress clicked element from it's array
@@ -92,6 +96,7 @@ const displayTags = (tags, node) => {
   // display updated arrays []
   removeTags();
 };
+////////////////////////////////////////////////////
 
 const handleAddTag = (tagSelector) => {
   const spanTags = document.querySelectorAll(tagSelector);
@@ -105,6 +110,7 @@ const handleAddTag = (tagSelector) => {
     });
   })
 };
+////////////////////////////////////////////////////
 
 const removeTags = () =>{
   const supressTagBtn =document.querySelectorAll(".supressTagBtn");
@@ -116,6 +122,14 @@ const removeTags = () =>{
           const removeTagIndex = tags.findIndex(tag=> tag === tags[i].name);
           if (tags[i].type === "ingredients") {
             ingredientList.push(tags[i].name);
+            displayIngredients(ingredientList, ingredientsSelect);
+          } else if (tags[i].type === "appliances") {
+            applianceList.push(tags[i].name);
+            displayAppliance(applianceList, applianceSelect);
+          } else if (tags[i].type === "ustensils") {
+            console.log(tags[i].type, tags[i].name);
+            ustensilsList.push(tags[i].name);
+            displayUstensils(ustensilsList, ustensilsSelect);
           }
           tags.splice(removeTagIndex, 1);
           displayTags(tags, tagContainer);
@@ -124,11 +138,13 @@ const removeTags = () =>{
     })
   })
 }
+////////////////////////////////////////////////////
 
 //display the ingredients in html
-displayIngredients(ingredientList, ingredientsSelect);
-displayAppliance(applianceList, applianceSelect);
-displayUstensils(ustensilsList, ustensilsSelect);
+// displayIngredients(ingredientList, ingredientsSelect);
+// displayAppliance(applianceList, applianceSelect);
+// displayUstensils(ustensilsList, ustensilsSelect);
+////////////////////////////////////////////////////
 
 //Event listener on inputs //
   //Filter inputs
@@ -169,4 +185,7 @@ inputs.forEach((input) => {
     }
   });
 });
+displayIngredients(ingredientList, ingredientsSelect);
+displayAppliance(applianceList, applianceSelect);
+displayUstensils(ustensilsList, ustensilsSelect);
 
