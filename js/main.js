@@ -10,11 +10,12 @@ let ustensils = [];
 let tags = [];
 // DOM elements
 let inputs = document.querySelectorAll(".input");
+const mainSearchInput = document.querySelector('.searchbar-input');
 const tagContainer =document.querySelector(".tag-container");
 const ingredientsSelect = document.querySelector(".ingredientElts");
 const applianceSelect = document.querySelector(".applianceElts");
 const ustensilsSelect = document.querySelector(".ustensilsElts");
-const mainSearchInput = document.querySelector('.searchbar-input');
+const recipesContainer = document.querySelector(".recipes-articles-container");
   
 ////////////////////////////////////////////////////
 
@@ -68,7 +69,7 @@ const displayUstensils = (ustensilsList, node) => {
 
 //Function to or add tags in tag container and suppress tag from select container, or reverse
 const displayTags = (tags, node) => {
-  // suppress clicked element from it's array
+  // suppress clicked element from it's array (Change to filter instead of remove later)
   //display updated array
   // add tags in tag-container
   for(let i = 0; i < tags.length; i++) {
@@ -89,13 +90,17 @@ const displayTags = (tags, node) => {
   // create innerHTML that will be added in tag container through handleAddTag
   node.innerHTML = "";
   tags.forEach((tag)=>{
-    node.innerHTML += `<div class="tagAndBtn"><span class="${tag.type}-tag tag" data-name="${tag.type}">${tag.name}</span>&nbsp; <button class="supressTagBtn"><i class="fa-regular fa-circle-xmark"></i></button></div>`;
+    node.innerHTML += `<div class="tagAndBtn ${tag.type}"><span class="${tag.type}-tag tag" data-name="${tag.type}">${tag.name}</span>&nbsp; <button class="supressTagBtn"><i class="fa-regular fa-circle-xmark"></i></button></div>`;
   });
-  //removes tag when clicked
-  // add clicked element in it's array.name [to do]
-  // display updated arrays []
   removeTags();
 };
+////////////////////////////////////////////////////
+
+//display all recipes
+
+// console.log(recipesContainer);
+console.log(recipes);
+
 ////////////////////////////////////////////////////
 
 const handleAddTag = (tagSelector) => {
@@ -112,6 +117,9 @@ const handleAddTag = (tagSelector) => {
 };
 ////////////////////////////////////////////////////
 
+//removes tag when clicked
+// add clicked element in it's array.name [to do]
+// display updated arrays []
 const removeTags = () =>{
   const supressTagBtn =document.querySelectorAll(".supressTagBtn");
   supressTagBtn.forEach((btn)=>{
@@ -119,31 +127,31 @@ const removeTags = () =>{
       const tagContainerElt = btn.previousElementSibling;
       for(let i = 0; i < tags.length; i++) {
         if (tagContainerElt.innerHTML.includes(tags[i].name)) {
-          const removeTagIndex = tags.findIndex(tag=> tag === tags[i].name);
+          //const removeTagIndex = tags.findIndex(tag=> tag.name === tags[i].name);
           if (tags[i].type === "ingredients") {
             ingredientList.push(tags[i].name);
             displayIngredients(ingredientList, ingredientsSelect);
-          } else if (tags[i].type === "appliances") {
+          } else if (tags[i].type === "appliance") {
             applianceList.push(tags[i].name);
             displayAppliance(applianceList, applianceSelect);
           } else if (tags[i].type === "ustensils") {
-            console.log(tags[i].type, tags[i].name);
             ustensilsList.push(tags[i].name);
             displayUstensils(ustensilsList, ustensilsSelect);
           }
-          tags.splice(removeTagIndex, 1);
+          tags = tags.filter(tag=> tag.name !== tags[i].name);
           displayTags(tags, tagContainer);
         }
       }
     })
   })
 }
-////////////////////////////////////////////////////
 
-//display the ingredients in html
-// displayIngredients(ingredientList, ingredientsSelect);
-// displayAppliance(applianceList, applianceSelect);
-// displayUstensils(ustensilsList, ustensilsSelect);
+////////////////////////////////////////////////////
+//display all recipes
+
+// console.log(recipesContainer);
+ console.log(recipes);
+
 ////////////////////////////////////////////////////
 
 //Event listener on inputs //
@@ -185,6 +193,7 @@ inputs.forEach((input) => {
     }
   });
 });
+//display the ingredients/appliances/ustensils in html file
 displayIngredients(ingredientList, ingredientsSelect);
 displayAppliance(applianceList, applianceSelect);
 displayUstensils(ustensilsList, ustensilsSelect);
