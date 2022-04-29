@@ -52,27 +52,32 @@ header {
   display: flex;
   flex-wrap: wrap;
 }
-.tagAndBtn, .tag-container .tag {
+.tagAndBtn, 
+.tag-container .tag, 
+.input.ingredients, 
+.input.appliances, 
+.input.ustensils {
   display: flex;
   align-items: center;
   color: white;
   margin: 1rem;
   padding: 1.5rem 1rem;
   width: -webkit-fit-content;
-  width: fit-content;
+  width: 10rem;
   height: 2rem;
   border-radius: 5px;
+  border: none;
 }
-.tag-container .ingredients-tag {
+.ingredients {
   background-color: #3282f7;
 }
-.tag-container .appliance-tag {
+.appliance {
   background-color: #68d9a4;
 }
-.tag-container .ustensils-tag {
+.ustensils {
   background-color: #ed6454;
 }
 .fa-regular {
-  color: #fff;
+  /* color: #fff; */
   margin-left: 1rem;
 }
