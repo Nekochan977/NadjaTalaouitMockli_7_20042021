@@ -18,11 +18,10 @@ header {
   margin: 2rem 0;
 }
 .main-content {
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
 }
-
 /*Search bar*/
 
 .search-bar {
@@ -68,10 +67,13 @@ header {
   border-radius: 5px;
   border: none;
 }
+.input::placeholder{
+  color: #fff;
+}
 .ingredients {
   background-color: #3282f7;
 }
-.appliance {
+.appliances {
   background-color: #68d9a4;
 }
 .ustensils {
