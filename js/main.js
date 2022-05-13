@@ -10,16 +10,16 @@ let ustensils = [];
 let tags = [];
 // DOM elements
 let inputs = document.querySelectorAll(".input");
-const mainSearchInput = document.querySelector('.searchbar-input');
-const tagContainer =document.querySelector(".tag-container");
+const mainSearchInput = document.querySelector(".searchbar-input");
+const tagContainer = document.querySelector(".tag-container");
 const ingredientsSelect = document.querySelector(".ingredientElts");
 const applianceSelect = document.querySelector(".applianceElts");
 const ustensilsSelect = document.querySelector(".ustensilsElts");
 const recipesContainer = document.querySelector(".recipes-articles-container");
-  
+
 ////////////////////////////////////////////////////
 
-//------Getting the ingredients------
+//------Retrieve ingredients/appliances/ustensils from recipes & push each types contents into seperated arrays-----
 recipes.forEach((recipe) => {
   recipe.ingredients.forEach((allIngredients) => {
     ingredients.push(allIngredients.ingredient.toLowerCase());
@@ -72,40 +72,39 @@ const displayTags = (tags, node) => {
   // suppress clicked element from it's array (Change to filter instead of remove later)
   //display updated array
   // add tags in tag-container
-  for(let i = 0; i < tags.length; i++) {
-    if (ingredientList.includes(tags[i].name)){
-      const removeTagIndex = ingredientList.findIndex(tag=> tag === tags[i].name);
+  for (let i = 0; i < tags.length; i++) {
+    if (ingredientList.includes(tags[i].name)) {
+      const removeTagIndex = ingredientList.findIndex(
+        (tag) => tag === tags[i].name
+      );
       ingredientList.splice(removeTagIndex, 1);
       displayIngredients(ingredientList, ingredientsSelect);
-    } else if (applianceList.includes(tags[i].name)){
-      const removeTagIndex = applianceList.findIndex(tag=> tag === tags[i].name);
+    } else if (applianceList.includes(tags[i].name)) {
+      const removeTagIndex = applianceList.findIndex(
+        (tag) => tag === tags[i].name
+      );
       applianceList.splice(removeTagIndex, 1);
       displayAppliance(applianceList, applianceSelect);
-    } else if (ustensilsList.includes(tags[i].name)){
-      const removeTagIndex = ustensilsList.findIndex(tag=> tag === tags[i].name);
+    } else if (ustensilsList.includes(tags[i].name)) {
+      const removeTagIndex = ustensilsList.findIndex(
+        (tag) => tag === tags[i].name
+      );
       ustensilsList.splice(removeTagIndex, 1);
       displayUstensils(ustensilsList, ustensilsSelect);
     }
   }
   // create innerHTML that will be added in tag container through handleAddTag
   node.innerHTML = "";
-  tags.forEach((tag)=>{
+  tags.forEach((tag) => {
     node.innerHTML += `<div class="tagAndBtn ${tag.type}"><span class="${tag.type}-tag tag" data-name="${tag.type}">${tag.name}</span>&nbsp; <button class="supressTagBtn"><i class="fa-regular fa-circle-xmark"></i></button></div>`;
   });
   removeTags();
 };
 ////////////////////////////////////////////////////
-
-//display all recipes
-
-// console.log(recipesContainer);
-console.log(recipes);
-
-////////////////////////////////////////////////////
-
+//add tag in tagContainer when clicked
 const handleAddTag = (tagSelector) => {
   const spanTags = document.querySelectorAll(tagSelector);
-  spanTags.forEach(tag => {
+  spanTags.forEach((tag) => {
     tag.addEventListener("click", () => {
       const name = tag.innerHTML;
       const type = tag.getAttribute("data-name");
@@ -113,19 +112,19 @@ const handleAddTag = (tagSelector) => {
       tagContainer.setAttribute("active", true);
       displayTags(tags, tagContainer);
     });
-  })
+  });
 };
 ////////////////////////////////////////////////////
 
 //removes tag when clicked
 // add clicked element in it's array.name [to do]
 // display updated arrays []
-const removeTags = () =>{
-  const supressTagBtn =document.querySelectorAll(".supressTagBtn");
-  supressTagBtn.forEach((btn)=>{
-    btn.addEventListener("click",(e)=>{
+const removeTags = () => {
+  const supressTagBtn = document.querySelectorAll(".supressTagBtn");
+  supressTagBtn.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
       const tagContainerElt = btn.previousElementSibling;
-      for(let i = 0; i < tags.length; i++) {
+      for (let i = 0; i < tags.length; i++) {
         if (tagContainerElt.innerHTML.includes(tags[i].name)) {
           //const removeTagIndex = tags.findIndex(tag=> tag.name === tags[i].name);
           if (tags[i].type === "ingredients") {
@@ -138,24 +137,54 @@ const removeTags = () =>{
             ustensilsList.push(tags[i].name);
             displayUstensils(ustensilsList, ustensilsSelect);
           }
-          tags = tags.filter(tag=> tag.name !== tags[i].name);
+          tags = tags.filter((tag) => tag.name !== tags[i].name);
           displayTags(tags, tagContainer);
         }
       }
-    })
-  })
-}
+    });
+  });
+};
 
 ////////////////////////////////////////////////////
-//display all recipes
+mainSearchInput.addEventListener("change", (e) => {
+  search(e.target.value, tags);
+});
 
-// console.log(recipesContainer);
- console.log(recipes);
+// l'appeler => ajout tag, remove tag ou input change mainSearchInput
+const search = (searchInputValue, tagsList) => {
+  const filteredRecipesBySearchInput = searchRecipeByInput(searchInputValue);
+  const filteredRecipesByTags = searchRecipesByTags(tagsList);
+  // ==> recipe qui correspond aux tags et à la recherche principale
+
+  // displayRecipes
+};
+
+const searchRecipeByInput = (searchInputValue) => {
+  const filteredRecipes = recipes.filter((recipe) => {
+    const search = searchInputValue.toLowerCase();
+    const ingredientList = recipe.ingredients.filter((ingredient) => {
+      if (ingredient["ingredient"].toLowerCase().includes(search)) {
+        return true;
+      }
+      return false;
+    });
+
+    if (
+      recipe.name.toLocaleLowerCase().includes(search) ||
+      recipe.description.toLocaleLowerCase().includes(search) ||
+      ingredientList.length > 0
+    ) {
+      return true;
+    }
+  });
+  console.log(filteredRecipes);
+  return filteredRecipes;
+};
+
 
 ////////////////////////////////////////////////////
 
-//Event listener on inputs //
-  //Filter inputs
+//Filter inputs-select
 inputs.forEach((input) => {
   input.addEventListener("input", (e) => {
     const type = input.getAttribute("data-type");
@@ -197,4 +226,3 @@ inputs.forEach((input) => {
 displayIngredients(ingredientList, ingredientsSelect);
 displayAppliance(applianceList, applianceSelect);
 displayUstensils(ustensilsList, ustensilsSelect);
-
