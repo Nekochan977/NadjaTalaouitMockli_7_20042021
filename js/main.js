@@ -58,14 +58,14 @@ const displayIngredients = (ingredientList, node) => {
 const displayAppliance = (applianceList, node) => {
   node.innerHTML = "";
   applianceList.forEach((element) => {
-    node.innerHTML += `<span class="appliance-tag tag" data-name="appliance">${element}</span>&nbsp;`;
+    node.innerHTML += `<span class="appliance-tag tag col-3" data-name="appliance">${element}</span>&nbsp;`;
   });
   handleAddTag(".appliance-tag");
 };
 const displayUstensils = (ustensilsList, node) => {
   node.innerHTML = "";
   ustensilsList.forEach((element) => {
-    node.innerHTML += `<span class="ustensils-tag tag" data-name="ustensils">${element}</span>&nbsp;`;
+    node.innerHTML += `<span class="ustensils-tag tag col-3" data-name="ustensils">${element}</span>&nbsp;`;
   });
   handleAddTag(".ustensils-tag");
 };
