@@ -148,6 +148,7 @@ const removeTags = () => {
       }
     });
   });
+  displayRecipes(recipes);
 };
 
 ////////////////////////////////////////////////////
@@ -160,7 +161,7 @@ const search = (tagsList) => {
   const searchInputValue = document.querySelector(".searchbar-input").value;
   const filteredRecipesBySearchInput = searchRecipeByInput(searchInputValue);
   const filteredRecipesByTags = searchRecipeByTags(tagsList, filteredRecipesBySearchInput);
-  console.log(filteredRecipesBySearchInput, filteredRecipesByTags);
+  //console.log(filteredRecipesBySearchInput, filteredRecipesByTags);
   // ==> recipe qui correspond aux tags et à la recherche principale
 
   displayRecipes(filteredRecipesByTags);
@@ -169,8 +170,9 @@ const search = (tagsList) => {
 const searchRecipeByInput = (searchInputValue) => {
   const filteredRecipes = recipes.filter((recipe) => {
     const search = searchInputValue.toLowerCase();
-    const ingredientList = recipe.ingredients.filter((ingredient) => {
+    const recipeIngredientList = recipe.ingredients.filter((ingredient) => {
       if (ingredient["ingredient"].toLowerCase().includes(search)) {
+        
         return true;
       }
       return false;
@@ -179,17 +181,19 @@ const searchRecipeByInput = (searchInputValue) => {
     if (
       recipe.name.toLocaleLowerCase().includes(search) ||
       recipe.description.toLocaleLowerCase().includes(search) ||
-      ingredientList.length > 0
+      recipeIngredientList.length > 0
     ) {
       return true;
     }
   });
-  console.log(filteredRecipes);
+  console.log(ingredientList);
   return filteredRecipes;
+  
 };
 
 const searchRecipeByTags = (tagsList, filteredRecipesBySearchInput) => {
 	const finalRecipes = filteredRecipesBySearchInput.filter(recipe => {
+    
     	let isOK = true;
         tagsList.forEach(tag => { 
           if (tag.type==="ingredients") {
@@ -202,10 +206,8 @@ const searchRecipeByTags = (tagsList, filteredRecipesBySearchInput) => {
             isOK = found ? true : false;
           } 
           if(tag.type==="appliance") {
-            if(recipe.appliance.toLowerCase().includes(tag.name)){
-              isOK=true;
-            }
-            isOK=false;
+            const found = recipe.appliance.toLowerCase().includes(tag.name);
+            isOK = found ? true : false;
           }
           if(tag.type==="ustensils") {
             const found = recipe.ustensils.find(ustensil=>{
@@ -245,7 +247,6 @@ const getingredients=(recipe)=>{
 }
 const displayRecipes = (filteredRecipes)=>{
   let str ="";
-  let itemStr ="";
   filteredRecipes.forEach(recipe => {
     //console.log(recipe.ingredients.forEach((ingredient)=>{console.log(ingredient.ingredient);}));
     str +=`
