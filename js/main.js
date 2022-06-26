@@ -210,6 +210,7 @@ const search = (tagsList) => {
   }
 };
 
+//Modify main search algorythm with native loop
 const searchRecipeByInput = (searchInputValue) => {
   const filteredRecipes = recipes.filter((recipe) => {
     const search = searchInputValue.toLowerCase();
