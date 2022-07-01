@@ -212,60 +212,43 @@ const search = (tagsList) => {
 
 //Modify main search algorythm with native loop
 const searchRecipeByInput = (searchInputValue) => {
-  const filteredRecipes = recipes.filter((recipe) => {
-    const search = searchInputValue.toLowerCase();
-    const recipeIngredientList = recipe.ingredients.filter((ingredient) => {
-      if (ingredient["ingredient"].toLowerCase().includes(search)) {
-        const filteredIngredients = ingredientList.filter((ingredient) => {
-          for (let i = 0; i < ingredient.length; i++) {
-            if (ingredient.includes(search)) {
-              return true;
-            }
-            return false;
-          }
-        });
-        
-        return true;
-      }
-      return false;
-    });
+  let finalSearchRecipes = [];
+  let filteredRecipes = [];
+  const search = searchInputValue.toLowerCase();
+ 
+  for (let i = 0; i < recipes.length; i++) {
+    const recipe = recipes[i];
+    const ingredientWholeElement = recipe.ingredients;
+    const recipeAppliance = recipe.appliance;
+    const ustensilsWholeElement = recipe.ustensils;
 
-    if (recipe.appliance.toLowerCase().includes(search)) {
-      const filteredAppliances = applianceList.filter((appliance) => {
-        for (let i = 0; i < appliance.length; i++) {
-          if (appliance.includes(search)) {
-            return true;
-          }
-          return false;
-        }
-      });
-      
+    for (let i = 0; i < ingredientWholeElement.length; i++) {
+      const element = ingredientWholeElement[i];
+      let ingredient = element.ingredient;
+      if (ingredient.toLowerCase().includes(search)) {
+        filteredRecipes.push(recipe);
+      }  
     }
-
-    const recipeUstensilList = recipe.ustensils.filter(ustensil =>{
-      if(ustensil.toLowerCase().includes(search)) {
-        const filteredUstensilss = ustensilsList.filter((ustensils) => {
-          for (let i = 0; i < ustensils.length; i++) {
-            if (ustensils.includes(search)) {
-              return true;
-            }
-            return false;
-          }
-        });
-        
-      }
-    })
-
-    if (
-      recipe.name.toLowerCase().includes(search) ||
-      recipe.description.toLowerCase().includes(search) ||
-      recipeIngredientList.length > 0 || recipeUstensilList.length > 0
-    ) {
-      return true;
+    if (recipeAppliance.toLocaleLowerCase().includes(search)) {
+      filteredRecipes.push(recipe);
     }
-  });
+    for (let i = 0; i < ustensilsWholeElement.length; i++) {
+    const ustensil = ustensilsWholeElement[i];
+      if (ustensil.toLowerCase().includes(search)) {
+      filteredRecipes.push(recipe);
+      }
+    }
+    if (recipe.name.toLowerCase().includes(search)) {
+      filteredRecipes.push(recipe);
+    }
+    if (recipe.description.toLowerCase().includes(search)) {
+    filteredRecipes.push(recipe);
+    }   
+  }
+  const recipesSet = new Set(filteredRecipes);
+  finalSearchRecipes = [...recipesSet];
 
-  return filteredRecipes;
+  return finalSearchRecipes;
   
 };
 
