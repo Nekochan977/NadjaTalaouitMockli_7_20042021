@@ -1,6 +1,7 @@
 "use strict";
 import recipes from "./recipes.js";
 import {openCloseSelectElements} from "./OpenCloseSelect.js";
+import {validate} from "./Validate.js";
 
 
 //variables that can be declared at top
@@ -187,6 +188,8 @@ displayUstensils(ustensilsList, ustensilsSelect);
 
 ////////////////////////////////////////////////////
 mainSearchInput.addEventListener("change", (e) => {
+  //form validation
+  validate(mainSearchInput);
   search(tags);
 });
 

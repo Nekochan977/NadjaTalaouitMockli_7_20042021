@@ -66,6 +66,17 @@ li {
   width: 3rem;
   padding-left: 0.5rem;
 }
+#searchBar[data-error]::after {
+  content: attr(data-error);
+  font-size: 12px;
+  color: #e54858;
+  display: block;
+  margin: 7px 0;
+}
+#main-search[data-error-visible="true"]{
+  content: attr(data-error);
+  border: 2px solid #e54858;
+}
 
 /*Tag section*/
 .tag-container[active="true"] {
