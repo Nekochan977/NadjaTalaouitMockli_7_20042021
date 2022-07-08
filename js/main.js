@@ -1,6 +1,7 @@
 "use strict";
 import recipes from "./recipes.js";
 import {openCloseSelectElements} from "./OpenCloseSelect.js";
+import {validate} from "./Validate.js";
 
 
 //variables that can be declared at top
@@ -17,10 +18,12 @@ const applianceSelect = document.querySelector(".applianceElts");
 const ustensilsSelect = document.querySelector(".ustensilsElts");
 const recipesContainer = document.querySelector(".recipes-articles-container");
 
+
 let ingredientList, applianceList,ustensilsList;
 
 //Opens or close select elements
 openCloseSelectElements();
+
 
 ////////////////////////////////////////////////////
 
@@ -187,13 +190,15 @@ displayUstensils(ustensilsList, ustensilsSelect);
 
 ////////////////////////////////////////////////////
 mainSearchInput.addEventListener("change", (e) => {
+  //form validation
+  validate(mainSearchInput);
   search(tags);
 });
 
 // l'appeler => ajout tag, remove tag ou input change mainSearchInput
 const search = (tagsList) => {
  
-  const searchInputValue = document.querySelector(".searchbar-input").value;
+  const searchInputValue = mainSearchInput.value;
   const filteredRecipesBySearchInput = searchRecipeByInput(searchInputValue);
   const filteredRecipesByTags = searchRecipeByTags(tagsList, filteredRecipesBySearchInput);
   getElements(filteredRecipesByTags);
