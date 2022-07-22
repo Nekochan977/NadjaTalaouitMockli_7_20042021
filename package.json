@@ -1,0 +1,23 @@
+{
+  "name": "NadjaTalaouitMockli_7_20042021",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nekochan977/NadjaTalaouitMockli_7_20042021.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nekochan977/NadjaTalaouitMockli_7_20042021/issues"
+  },
+  "homepage": "https://github.com/Nekochan977/NadjaTalaouitMockli_7_20042021#readme",
+  "dependencies": {
+    "parcel": "^2.2.1"
+  }
+}

@@ -64,7 +64,7 @@ const getingredients=(recipe)=>{
   recipe.ingredients.forEach((ingredient)=>{
     
     itemStr +=`
-      <li class="item">
+      <li class="list-item">
         <span class="item-ingredient">${ingredient.ingredient} :</span> 
         <span class="item-quantity">${ingredient.quantity || ""}</span> 
         <span class="item-unit">${ingredient.unit || ""}</span>
@@ -107,26 +107,24 @@ displayRecipes(recipes);
 
 //Functions to create select html nodes
 
-//turn 3 functions below to a single function using html data-attribute
-
 const displayIngredients = (ingredientList, node) => {
   node.innerHTML = "";
   ingredientList.forEach((element) => {
-    node.innerHTML += `<span class="ingredient-tag tag col-3" data-name="ingredients">${element}</span>&nbsp;`;
+    node.innerHTML += `<div class=" col-4 item"><span class="ingredient-tag tag" data-name="ingredients">${element}</span>&nbsp;</div>`;
   });
   handleAddTag(".ingredient-tag");
 };
 const displayAppliance = (applianceList, node) => {
   node.innerHTML = "";
   applianceList.forEach((element) => {
-    node.innerHTML += `<span class="appliance-tag tag col-3" data-name="appliance">${element}</span>&nbsp;`;
+    node.innerHTML += `<div class=" col-4 item"><span class="appliance-tag tag" data-name="appliance">${element}</span>&nbsp;</div>`;
   });
   handleAddTag(".appliance-tag");
 };
 const displayUstensils = (ustensilsList, node) => {
   node.innerHTML = "";
   ustensilsList.forEach((element) => {
-    node.innerHTML += `<span class="ustensils-tag tag col-3" data-name="ustensils">${element}</span>&nbsp;`;
+    node.innerHTML += `<div class=" col-4 item"><span class="ustensils-tag tag" data-name="ustensils">${element}</span>&nbsp;</div>`;
   });
   handleAddTag(".ustensils-tag");
 };
@@ -347,9 +345,15 @@ const removeTags = () => {
 //Filter inputs-select
 inputs.forEach((input) => {
   input.addEventListener("input", (e) => {
+    // console.log(ingredientsSelect);
     const type = input.getAttribute("data-type");
+    const open = input.nextElementSibling.children[0];
+    const close = input.nextElementSibling.children[1];
     let searchInput = e.target.value;
     if (type === "ingredients") {
+      ingredientsSelect.style.display="flex";
+      open.style.display="none";
+      close.style.display="block";
       const filteredIngredients = ingredientList.filter((ingredient) => {
         for (let i = 0; i < ingredient.length; i++) {
           if (ingredient.includes(searchInput)) {
@@ -360,6 +364,9 @@ inputs.forEach((input) => {
       });
       displayIngredients(filteredIngredients, ingredientsSelect);
     } else if (type === "appliances") {
+      applianceSelect.style.display="flex";
+      open.style.display="none";
+      close.style.display="block";
       const filteredAppliances = applianceList.filter((appliance) => {
         for (let i = 0; i < appliance.length; i++) {
           if (appliance.includes(searchInput)) {
@@ -370,6 +377,9 @@ inputs.forEach((input) => {
       });
       displayAppliance(filteredAppliances, applianceSelect);
     } else if (type === "ustensils") {
+      ustensilsSelect.style.display="flex";
+      open.style.display="none";
+      close.style.display="block";
       const filteredUstensilss = ustensilsList.filter((ustensils) => {
         for (let i = 0; i < ustensils.length; i++) {
           if (ustensils.includes(searchInput)) {
@@ -382,3 +392,5 @@ inputs.forEach((input) => {
     }
   });
 });
+
+
