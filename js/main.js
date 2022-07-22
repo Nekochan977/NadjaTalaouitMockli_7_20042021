@@ -214,52 +214,10 @@ const search = (tagsList) => {
 const searchRecipeByInput = (searchInputValue) => {
   const filteredRecipes = recipes.filter((recipe) => {
     const search = searchInputValue.toLowerCase();
-    const recipeIngredientList = recipe.ingredients.filter((ingredient) => {
-      if (ingredient["ingredient"].toLowerCase().includes(search)) {
-        const filteredIngredients = ingredientList.filter((ingredient) => {
-          for (let i = 0; i < ingredient.length; i++) {
-            if (ingredient.includes(search)) {
-              return true;
-            }
-            return false;
-          }
-        });
-        
-        return true;
-      }
-      return false;
-    });
-
-    if (recipe.appliance.toLowerCase().includes(search)) {
-      const filteredAppliances = applianceList.filter((appliance) => {
-        for (let i = 0; i < appliance.length; i++) {
-          if (appliance.includes(search)) {
-            return true;
-          }
-          return false;
-        }
-      });
-      
-    }
-
-    const recipeUstensilList = recipe.ustensils.filter(ustensil =>{
-      if(ustensil.toLowerCase().includes(search)) {
-        const filteredUstensilss = ustensilsList.filter((ustensils) => {
-          for (let i = 0; i < ustensils.length; i++) {
-            if (ustensils.includes(search)) {
-              return true;
-            }
-            return false;
-          }
-        });
-        
-      }
-    })
-
+    
     if (
       recipe.name.toLowerCase().includes(search) ||
-      recipe.description.toLowerCase().includes(search) ||
-      recipeIngredientList.length > 0 || recipeUstensilList.length > 0
+      recipe.description.toLowerCase().includes(search)
     ) {
       return true;
     }
