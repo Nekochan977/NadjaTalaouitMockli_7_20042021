@@ -214,11 +214,19 @@ const search = (tagsList) => {
 const searchRecipeByInput = (searchInputValue) => {
   const filteredRecipes = recipes.filter((recipe) => {
     const search = searchInputValue.toLowerCase();
+    const recipeIngredientList = recipe.ingredients.filter((ingredient) => {
+      if (ingredient["ingredient"].toLowerCase().includes(search)) {
+        
+        return true;
+      }
+      return false;
+    }); 
     
     if (
       recipe.name.toLowerCase().includes(search) ||
-      recipe.description.toLowerCase().includes(search)
+      recipe.description.toLowerCase().includes(search) || recipeIngredientList.length>0
     ) {
+      
       return true;
     }
   });
