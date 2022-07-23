@@ -136,6 +136,7 @@ li {
 .elements-container {
   padding-right: unset;
   padding-left: unset;
+  max-width: 70rem;
 }
 .elements > .tag {
   padding: 0.5rem;
@@ -211,8 +212,6 @@ article {
   margin: unset;
   padding: unset;
   position: relative;
-  /* min-height: fit-content;
-  height: 14rem; */
   font-size: 1.2rem;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
