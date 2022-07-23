@@ -136,6 +136,7 @@ li {
 .elements-container {
   padding-right: unset;
   padding-left: unset;
+  max-width: 70rem;
 }
 .elements > .tag {
   padding: 0.5rem;
